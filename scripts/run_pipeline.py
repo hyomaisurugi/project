@@ -20,4 +20,8 @@ def generate_md():
     print("✅ Markdown生成完了:", OUTPUT_MD)
 
 if __name__ == "__main__":
-    generate_md()
+    generate_ if os.path.exists(OUTPUT_MD):
+    os.remove(OUTPUT_MD)
+
+if os.path.exists(OUTPUT_MD):
+    os.remove(OUTPUT_MD)

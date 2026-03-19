@@ -14,14 +14,17 @@ def generate_md():
 
     content = data.get("content", "")
 
+    os.makedirs("output", exist_ok=True)
+
+    # 既存ファイル削除
+    if os.path.exists(OUTPUT_MD):
+        os.remove(OUTPUT_MD)
+
     with open(OUTPUT_MD, "w", encoding="utf-8") as f:
         f.write(content)
 
     print("✅ Markdown生成完了:", OUTPUT_MD)
 
-if __name__ == "__main__":
-    generate_ if os.path.exists(OUTPUT_MD):
-    os.remove(OUTPUT_MD)
 
-if os.path.exists(OUTPUT_MD):
-    os.remove(OUTPUT_MD)
+if __name__ == "__main__":
+    generate_md()

@@ -1,6 +1,13 @@
 import json
+from pathlib import Path
 
-with open("data/input.json", "r", encoding="utf-8") as f:
+ROOT = Path(__file__).resolve().parent.parent
+INPUT_FILE = ROOT / "input" / "input.json"
+OUTPUT_DIR = ROOT / "output"
+
+OUTPUT_DIR.mkdir(exist_ok=True)
+
+with INPUT_FILE.open("r", encoding="utf-8") as f:
     data = json.load(f)
 
 filename = data["filename"]
@@ -14,7 +21,9 @@ thread_part: {data.get("thread_part", 0)}
 
 """
 
-with open(filename, "w", encoding="utf-8") as f:
+output_file = OUTPUT_DIR / filename
+
+with output_file.open("w", encoding="utf-8") as f:
     f.write(front_matter + content)
 
-print(f"Generated: {filename}")
+print(f"Generated: {output_file}")

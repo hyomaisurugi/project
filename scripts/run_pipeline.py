@@ -26,3 +26,7 @@ def generate_md():
 
 if __name__ == "__main__":
     generate_md()
+
+if content.strip() == "..." or len(content.strip()) < 20:
+    print("❌ content が短すぎます。JSONが省略されている可能性があります")
+    return

@@ -25,6 +25,9 @@ def generate_md():
 
     print("✅ Markdown生成完了:", OUTPUT_MD)
 
-
 if __name__ == "__main__":
     generate_md()
+
+if not content.strip():
+    print("❌ content が空です")
+    return

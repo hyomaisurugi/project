@@ -17,12 +17,14 @@ jobs:
       - run: python scripts/generate_md.py
 
       - name: Install rclone
-        run: curl https://rclone.org/install.sh | sudo bash
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
 
-      - name: Setup rclone
+      - name: Restore rclone config
         run: |
           mkdir -p ~/.config/rclone
-          echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
+          echo "${{ secrets.RCLONE_CONFIG_B64 }}" | base64 -d > ~/.config/rclone/rclone.conf
+          test -s ~/.config/rclone/rclone.conf
 
       - name: Upload
         run: rclone copy output/*.md gdrive:引き継ぎ

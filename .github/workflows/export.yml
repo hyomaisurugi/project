@@ -25,9 +25,9 @@ jobs:
           echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
 
       - name: Upload
-        run: rclone copy *.md gdrive:引き継ぎ
+        run: rclone copy output/*.md gdrive:引き継ぎ
 
       - name: Link
         run: |
-          FILE=$(ls *.md | head -n 1)
+          FILE=$(ls output/*.md | head -n 1 | xargs basename)
           rclone link "gdrive:引き継ぎ/$FILE"

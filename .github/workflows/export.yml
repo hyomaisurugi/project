@@ -1,0 +1,33 @@
+name: Export Chat Summary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - run: python scripts/generate_md.py
+
+      - name: Install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+
+      - name: Setup rclone
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "${{ secrets.RCLONE_CONF }}" > ~/.config/rclone/rclone.conf
+
+      - name: Upload
+        run: rclone copy *.md gdrive:引き継ぎ
+
+      - name: Link
+        run: |
+          FILE=$(ls *.md | head -n 1)
+          rclone link "gdrive:引き継ぎ/$FILE"

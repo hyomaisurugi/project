@@ -2,7 +2,7 @@ import json
 import os
 
 INPUT_JSON = "input/final.json"
-OUTPUT_MD = "output/summary.md"
+OUTPUT_DIR = "output"
 
 def generate_md():
     if not os.path.exists(INPUT_JSON):
@@ -12,22 +12,17 @@ def generate_md():
     with open(INPUT_JSON, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    filename = data.get("filename", "summary.md")
     content = data.get("content", "")
 
-    os.makedirs("output", exist_ok=True)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    # 既存ファイル削除
-    if os.path.exists(OUTPUT_MD):
-        os.remove(OUTPUT_MD)
+    output_path = os.path.join(OUTPUT_DIR, filename)
 
-    with open(OUTPUT_MD, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print("✅ Markdown生成完了:", OUTPUT_MD)
+    print("✅ Markdown生成完了:", output_path)
 
 if __name__ == "__main__":
     generate_md()
-
-if not content.strip():
-    print("❌ content が空です")
-    return
